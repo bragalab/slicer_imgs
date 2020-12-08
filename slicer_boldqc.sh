@@ -3,8 +3,8 @@
 #SBATCH --partition=buyin      		# 'Buyin' submits to our node qhimem0018
 #SBATCH --time=00:20:00             # Walltime/duration of the job
 #SBATCH --mem=40               # Memory per node in GB. Also see --mem-per-cpu
-#SBATCH --output=/projects/b1134/processed/slicer/logs/slcr_CBS2p4_%a_%A.out
-#SBATCH --error=/projects/b1134/processed/slicer/logs/slcr_CBS2p4_%a_%A.err
+#SBATCH --output=/projects/b1134/processed/slicer/logs/slcr_boldqc_%a_%A.out
+#SBATCH --error=/projects/b1134/processed/slicer/logs/slcr_boldqc_%a_%A.err
 #SBATCH --job-name="Slicer"       # Name of job
 
 # Braga Lab Slicer Script
@@ -13,8 +13,8 @@
 # Created by R. Braga, A. Holubecki, S. Cermak - Nov 4th, 2020
  
 # Usage:
-# slicer_bold_CBS2p4.sh scan_name out_dir
-# e.g. sh /projects/b1134/tools/slicer_imgs/slicer_boldqc_CBS2p4.sh /projects/b1134/processed/boldqc/SeqDev/sub-fMRIPILOT1030/ses-fMRIPILOT1030/tmp/sub-fMRIPILOT1030_ses-fMRIPILOT1030_task-REST02_acq-CBS2p4_bold_skip_mc_mean.nii.gz /projects/b1134/processed/boldqc/SeqDev/sub-fMRIPILOT1030/ses-fMRIPILOT1030/task-REST02 sub-fMRIPILOT1030_ses-fMRIPILOT1030_task-REST02_acq-CBS2p4_meanBOLD
+# slicer_boldqc.sh scan_name out_dir
+# e.g. sh /projects/b1134/tools/slicer_imgs/slicer_boldqc.sh /projects/b1134/processed/boldqc/SeqDev/sub-fMRIPILOT1030/ses-fMRIPILOT1030/tmp/sub-fMRIPILOT1030_ses-fMRIPILOT1030_task-REST02_acq-CBS2p4_bold_skip_mc_mean.nii.gz /projects/b1134/processed/boldqc/SeqDev/sub-fMRIPILOT1030/ses-fMRIPILOT1030/task-REST02 sub-fMRIPILOT1030_ses-fMRIPILOT1030_task-REST02_acq-CBS2p4_meanBOLD
 
 infile=$1
 OUTPATH=$2
@@ -42,7 +42,7 @@ underlay=$infile
 
 
 
-#CBS2p4 AXIAL
+#AXIAL
 outfile=$OUTPATH/${img_name}_ax.png
 
 zdim=$(fslinfo $underlay | awk '{print $2}' | awk 'FNR == 4 {print}')
@@ -62,7 +62,7 @@ fi
 convert $outfile -resize 700 $outfile
 convert $outfile -background White -pointsize 15 -splice 0x18 -annotate +1+13 ${img_name}_ax -append $outfile
 
-#CBS2p4 SAGITTAL
+#SAGITTAL
 outfile=$OUTPATH/${img_name}_sag.png
 xadjust=8
 echo "start: $xadjust"
